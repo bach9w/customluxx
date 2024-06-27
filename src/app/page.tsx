@@ -16,10 +16,7 @@ export default function Home() {
 								<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t via-slate-50/50 from-slate-50 h-28" />
 							</div>
 							<h1 className="relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-gray-900 text-5xl md:text-6xl lg:text-7xl uppercase">
-								Калъфи
-								<span className="bg-black px-2 text-white">
-									CustomLuxx
-								</span>{" "}
+								<span className="bg-black px-2 text-white">CustomLuxx</span>{" "}
 								ръчно създадени
 							</h1>
 							<p className="mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
