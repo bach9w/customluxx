@@ -1,6 +1,7 @@
 "use client";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
+import ButtonExample from "./CustomButton";
 
 const Example = () => {
 	return (
@@ -13,9 +14,7 @@ const Example = () => {
 			<HorizontalScrollCarousel />
 			<div className="flex h-48 items-center justify-center">
 				<span className="font-semibold uppercase text-neutral-500">
-					<button className="bg-white text-black rounded-xl text-xl p-2">
-						Направи поръчка
-					</button>
+					<ButtonExample />
 				</span>
 			</div>
 		</div>

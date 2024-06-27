@@ -1,8 +1,10 @@
+"use client";
 import Example from "@/components/HorizontalScroll";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { motion } from "framer-motion";
 
 import { buttonVariants } from "@/components/ui/button";
-import { ArrowRight, Check, Star } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -11,7 +13,12 @@ export default function Home() {
 			<section>
 				<MaxWidthWrapper className="pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
 					<div className="col-span-2 px-6 lg:px-0 lg:pt-4">
-						<div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
+						<motion.div
+							initial={{ opacity: 0, y: 100 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.2 }}
+							className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start"
+						>
 							<div className="absolute w-28 left-0 -top-20 hidden lg:block">
 								<div className="absolute inset-x-0 bottom-0 bg-gradient-to-t via-slate-50/50 from-slate-50 h-28" />
 							</div>
@@ -57,10 +64,16 @@ export default function Home() {
 									</p>
 								</div>
 							</div>
-						</div>
+						</motion.div>
 					</div>
 				</MaxWidthWrapper>
-				<Example />
+				<motion.div
+					initial={{ opacity: 0, y: -100 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ ease: "linear", duration: 0.5, delay: 0.2 }}
+				>
+					<Example />
+				</motion.div>
 			</section>
 		</div>
 	);
