@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Recursive } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-const recursive = Recursive({ subsets: ["latin"] });
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({
 	children,
@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={recursive.className}>
+			<body className={montserrat.className}>
 				<Navbar />
 
 				<main className="flex grainy-light flex-col min-h-[calc(100vh-3.5rem-1px)]">

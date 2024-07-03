@@ -13,8 +13,8 @@ const Example = () => {
 			</div>
 			<HorizontalScrollCarousel />
 			<div className="flex h-48 items-center justify-center">
-				<span className="font-semibold uppercase text-neutral-500">
-					<ButtonExample />
+				<span className="font-semibold uppercase text-neutral-700">
+					<ButtonExample link="/cart" />
 				</span>
 			</div>
 		</div>
