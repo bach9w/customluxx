@@ -1,15 +1,22 @@
+"use client";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { ArrowBigDown, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
-const Navbar = async () => {
+const Navbar = () => {
 	const user = true;
 	const isAdmin = true;
 
 	return (
-		<nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-red-700 bg-black backdrop-blur-lg transition-all text-white">
+		<motion.nav
+			initial={{ opacity: 0, y: -100 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ ease: "linear", duration: 0.5, delay: 0.2 }}
+			className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-red-700 bg-black backdrop-blur-lg transition-all text-white"
+		>
 			<MaxWidthWrapper>
 				<div className="flex h-14 items-center justify-between  ">
 					<Link
@@ -56,7 +63,7 @@ const Navbar = async () => {
 					</div>
 				</div>
 			</MaxWidthWrapper>
-		</nav>
+		</motion.nav>
 	);
 };
 

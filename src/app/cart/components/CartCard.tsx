@@ -9,71 +9,42 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
+import { symbols } from "@/utils/constants";
+
 import CarouselShower from "./Modal";
 import { createContext, useContext, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-const GerbContext = createContext({
-	gerb: null,
-	setGerb: (value: any) => {},
-	flag: null,
-	setFlag: (value: any) => {},
-});
-
-const TabsProvider = ({ children }: { children: React.ReactNode }) => {
-	const [gerb, setGerb] = useState(null);
-	const [flag, setFlag] = useState(null);
-	return (
-		<GerbContext.Provider value={{ gerb, setGerb, flag, setFlag }}>
-			{children}
-		</GerbContext.Provider>
-	);
-};
-
-const GerbTabContent = () => {
-	const { gerb, setGerb } = useContext(GerbContext);
-
-	return (
-		<>
-			Избери един от наличните гербове.
-			<CarouselShower state={gerb} setState={setGerb} />
-		</>
-	);
-};
-
-const FlagTabContent = () => {
-	const { flag, setFlag } = useContext(GerbContext);
-	return (
-		<>
-			Избери едно от наличните знамена.
-			<CarouselShower state={flag} setState={setFlag} />
-		</>
-	);
-};
-
-const TextInput = () => {
-	return (
-		<>
-			<Label>Надпис по избор</Label>
-			<Input type="text" placeholder="Надпис по избор" />
-		</>
-	);
-};
-
-const TableInput = () => {
-	return (
-		<>
-			<Label>Надпис върху табелка по избор</Label>
-			<Input type="text" placeholder="Надпис по избор" />
-		</>
-	);
-};
+import { useRouter } from "next/navigation";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 export function CartCard() {
+	const router = useRouter();
+	const [ready, setReady] = useState(false);
+	const [gerb, setGerb] = useState();
+	const [flag, setFlag] = useState();
+	const [order, setOrder] = useState({
+		text: "",
+		table: "",
+		symbol: "",
+	});
+
+	const handleChange = (e: any) => {
+		setOrder({
+			...order,
+			[e.target.name]: e.target.value,
+		});
+	};
+
 	return (
-		<TabsProvider>
+		<>
 			<Card className="mx-auto max-w-xl">
 				<CardHeader>
 					<CardTitle className="text-2xl">Поръчка</CardTitle>
@@ -92,30 +63,73 @@ export function CartCard() {
 								<TabsTrigger value="flag">Знамена</TabsTrigger>
 								<TabsTrigger value="text">Надпис</TabsTrigger>
 								<TabsTrigger value="table">Табелка</TabsTrigger>
+								<TabsTrigger value="symbol">Символ</TabsTrigger>
 							</TabsList>
 							<TabsContent value="gerb">
-								<GerbTabContent />
+								<CarouselShower state={gerb} setState={setGerb} />
 							</TabsContent>
 							<TabsContent value="flag">
-								<FlagTabContent />
+								<CarouselShower state={flag} setState={setFlag} />
 							</TabsContent>
-							<TabsContent value="text">
-								<TextInput />
+							<TabsContent value="text" className="">
+								<Label>Надпис върху калъфа</Label>
+								<Input
+									type="text"
+									name="text"
+									placeholder="примерен текст"
+									onChange={handleChange}
+								/>
 							</TabsContent>
 							<TabsContent value="table">
-								<TableInput />
+								<Label>Надпис върху табелка</Label>
+
+								<Input
+									type="text"
+									placeholder="примерен текст"
+									name="table"
+									onChange={handleChange}
+								/>
+							</TabsContent>
+							<TabsContent value="symbol">
+								<Select
+									onValueChange={(value) => {
+										setOrder({
+											...order,
+											symbol: value,
+										});
+										console.log(value);
+									}}
+								>
+									<SelectTrigger className="w-[180px]">
+										<SelectValue placeholder="Символ" />
+									</SelectTrigger>
+									<SelectContent>
+										{symbols.map((s) => (
+											<SelectItem key={s.id} value={s.name}>
+												{s.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
 							</TabsContent>
 						</Tabs>
-
-						<Button variant="outline" className="w-full">
-							Разгледай продуктите
-						</Button>
-						<Button variant={"destructive"} className="w-full">
-							Премини към поръчка
-						</Button>
 					</div>
 				</CardContent>
+				<Button variant="outline" className="w-full rounded-none">
+					Разгледай продуктите
+				</Button>
+				<Button
+					onClick={() => {
+						router.push(
+							`/cart/order?gerb=${gerb}&flag=${flag}&text=${order.text}&table=${order.table}&symbol=${order.symbol}`,
+						);
+					}}
+					variant={"destructive"}
+					className="w-full rounded-t-none"
+				>
+					Премини към поръчка
+				</Button>
 			</Card>
-		</TabsProvider>
+		</>
 	);
 }
