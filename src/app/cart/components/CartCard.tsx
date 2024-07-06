@@ -9,7 +9,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-import { symbols } from "@/utils/constants";
+import { symbols, models } from "@/utils/constants";
 
 import CarouselShower from "./Modal";
 import { createContext, useContext, useState } from "react";
@@ -34,6 +34,7 @@ export function CartCard() {
 		text: "",
 		table: "",
 		symbol: "",
+		model: "",
 	});
 
 	const handleChange = (e: any) => {
@@ -58,7 +59,7 @@ export function CartCard() {
 							defaultValue="gerb"
 							className="w-full flex justify-center items-center flex-col"
 						>
-							<TabsList className="bg-black text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-5 grid-flow-row mb-10">
+							<TabsList className="bg-black text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-6 grid-flow-row mb-10">
 								<TabsTrigger className="" value="gerb">
 									Гербове
 								</TabsTrigger>
@@ -116,6 +117,29 @@ export function CartCard() {
 									</SelectContent>
 								</Select>
 							</TabsContent>
+							<TabsContent value="model">
+								<Label>Модел на калъфа</Label>
+								<Select
+									onValueChange={(value) => {
+										setOrder({
+											...order,
+											model: value,
+										});
+										console.log(value);
+									}}
+								>
+									<SelectTrigger className="w-[180px]">
+										<SelectValue placeholder="Модел" />
+									</SelectTrigger>
+									<SelectContent>
+										{models.map((s) => (
+											<SelectItem key={s.id} value={s.name}>
+												{s.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</TabsContent>
 						</Tabs>
 					</div>
 				</CardContent>
@@ -125,7 +149,7 @@ export function CartCard() {
 				<Button
 					onClick={() => {
 						router.push(
-							`/cart/order?gerb=${gerb}&flag=${flag}&text=${order.text}&table=${order.table}&symbol=${order.symbol}`,
+							`/cart/order?gerb=${gerb}&flag=${flag}&text=${order.text}&table=${order.table}&symbol=${order.symbol}&model=${order.model}`,
 						);
 					}}
 					variant={"destructive"}

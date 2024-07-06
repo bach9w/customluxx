@@ -27,6 +27,7 @@ const Order = () => {
 	const text = searchParams.get("text");
 	const table = searchParams.get("table");
 	const symbol = searchParams.get("symbol");
+	const model = searchParams.get("model");
 
 	return (
 		<MaxWidthWrapper>
@@ -38,6 +39,11 @@ const Order = () => {
 					<Badge className="w-full">Преглед на поръчка</Badge>
 				</CardHeader>
 				<CardContent className="grid grid-cols-1 xl:grid-cols-2">
+					{model && (
+						<div className="w-full h-[40px] flex items-center justify-center">
+							Избрали сте модел - {model}
+						</div>
+					)}
 					{gerb !== "undefined" && (
 						<div className="w-full h-[40px] flex items-center justify-center">
 							Избрали сте герб - {gerb}
@@ -82,18 +88,6 @@ const Order = () => {
 						</div>
 					) : (
 						<div className="w-full flex flex-col gap-4">
-							<Select>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder="Модел на телефона" />
-								</SelectTrigger>
-								<SelectContent>
-									{models.map((s) => (
-										<SelectItem key={s.id} value={s.name}>
-											{s.name}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
 							<Button variant="outline" className="w-full rounded-none">
 								Плати
 							</Button>

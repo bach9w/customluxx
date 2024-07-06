@@ -2,6 +2,7 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import ButtonExample from "./CustomButton";
+import { Check, Star } from "lucide-react";
 
 const Example = () => {
 	return (
@@ -12,6 +13,40 @@ const Example = () => {
 				</span>
 			</div>
 			<HorizontalScrollCarousel />
+			<div className="flex flex-col text-white">
+				<ul className="mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start">
+					<div className="space-y-2">
+						<li className="flex gap-1.5 items-center text-left">
+							<Check className="h-5 w-5 shrink-0 text-green-600" />
+							Високо качество
+						</li>
+						<li className="flex gap-1.5 items-center text-left">
+							<Check className="h-5 w-5 shrink-0 text-green-600" />
+							20 години гаранция
+						</li>
+						<li className="flex gap-1.5 items-center text-left">
+							<Check className="h-5 w-5 shrink-0 text-green-600" />
+							Голям асортимент от налични калъфи
+						</li>
+					</div>
+				</ul>
+
+				<div className="mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5">
+					<div className="flex flex-col justify-between items-center sm:items-start">
+						<div className="flex gap-0.5 items-center justify-center w-full">
+							<Star className="h-4 w-4 text-green-600 fill-green-600" />
+							<Star className="h-4 w-4 text-green-600 fill-green-600" />
+							<Star className="h-4 w-4 text-green-600 fill-green-600" />
+							<Star className="h-4 w-4 text-green-600 fill-green-600" />
+							<Star className="h-4 w-4 text-green-600 fill-green-600" />
+						</div>
+
+						<p className="w-full text-center">
+							<span className="font-semibold">25 000</span> доволни клиенти
+						</p>
+					</div>
+				</div>
+			</div>
 			<div className="flex h-48 items-center justify-center">
 				<span className="font-semibold uppercase text-neutral-700">
 					<ButtonExample link="/cart" />

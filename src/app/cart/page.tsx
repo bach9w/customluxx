@@ -1,21 +1,30 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-
-import { CartCard } from "./components/CartCard";
-
+"use client";
+import { Card, CardDescription } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 const Cart = () => {
+	const router = useRouter();
 	return (
-		<MaxWidthWrapper className="pb-24 pt-10  sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52 ">
-			<CartCard />
-		</MaxWidthWrapper>
+		<div className="h-screen w-full flex items-center justify-center">
+			<div className="grid grid-cols-2 gap-2 ">
+				<Card
+					className="w-[200px] h-[200px] flex items-center justify-center"
+					onClick={() => {
+						router.push("/cart/custom");
+					}}
+				>
+					<CardDescription>Генерирай калъф</CardDescription>
+				</Card>
+				<Card
+					className="w-[200px] h-[200px] flex items-center justify-center text-center"
+					onClick={() => {
+						router.push("/cart/");
+					}}
+				>
+					<CardDescription>Разгледай готови предложения</CardDescription>
+				</Card>
+			</div>
+		</div>
 	);
 };
 
 export default Cart;
-
-/*
-Ред/таб за Герб
-Таб за надпис
-таб за знаме
-таб за надпис
-табелка/надпис за име
-Символ*/
