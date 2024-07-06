@@ -58,12 +58,15 @@ export function CartCard() {
 							defaultValue="gerb"
 							className="w-full flex justify-center items-center flex-col"
 						>
-							<TabsList>
-								<TabsTrigger value="gerb">Гербове</TabsTrigger>
+							<TabsList className="bg-black text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-5 grid-flow-row mb-10">
+								<TabsTrigger className="" value="gerb">
+									Гербове
+								</TabsTrigger>
 								<TabsTrigger value="flag">Знамена</TabsTrigger>
 								<TabsTrigger value="text">Надпис</TabsTrigger>
 								<TabsTrigger value="table">Табелка</TabsTrigger>
 								<TabsTrigger value="symbol">Символ</TabsTrigger>
+								<TabsTrigger value="model">Модел</TabsTrigger>
 							</TabsList>
 							<TabsContent value="gerb">
 								<CarouselShower state={gerb} setState={setGerb} />
@@ -91,6 +94,7 @@ export function CartCard() {
 								/>
 							</TabsContent>
 							<TabsContent value="symbol">
+								<Label>Символ върху калъфа</Label>
 								<Select
 									onValueChange={(value) => {
 										setOrder({
