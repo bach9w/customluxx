@@ -48,7 +48,7 @@ const Navbar = () => {
 						</Link>
 					) : null}
 					<Link href="/cart/">
-						<Button className="absolute right-0 sm:flex items-center gap-1">
+						<Button className="hidden sm:absolute right-5  sm:flex items-center gap-2 mt-10 hover:bg-red-600">
 							Поръчай сега
 							<ArrowBigDown className="ml-1.5 h-5 w-5" />
 						</Button>
