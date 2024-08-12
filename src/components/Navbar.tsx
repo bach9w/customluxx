@@ -38,7 +38,7 @@ const Navbar = () => {
 					</Link>
 					{isAdmin ? (
 						<Link
-							href="/"
+							href="/experimental"
 							className={buttonVariants({
 								size: "sm",
 								variant: "ghost",

@@ -17,7 +17,7 @@ const Cart = () => {
 				<Card
 					className="w-[200px] h-[200px] flex items-center justify-center text-center"
 					onClick={() => {
-						router.push("/cart/");
+						router.push("/experimental");
 					}}
 				>
 					<CardDescription>Разгледай готови предложения</CardDescription>
