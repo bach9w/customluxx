@@ -55,16 +55,7 @@ import { FiDelete } from "react-icons/fi";
 import AlertEdit from "./components/alert-edit";
 import AlertDelete from "./components/alert-delete";
 import { Id } from "../../../../convex/_generated/dataModel";
-
-export function ConvexImage({ imageId }: { imageId: Id<"_storage"> }) {
-	const imageUrl = useQuery(api.files.getImageUrl, { imageId });
-
-	return (
-		imageUrl && (
-			<Image alt="image test image" width={200} height={200} src={imageUrl} />
-		)
-	);
-}
+import { ConvexImage } from "../components/ConvexImage";
 
 export default function Dashboard() {
 	const [edited, setEdited] = useState(false);
