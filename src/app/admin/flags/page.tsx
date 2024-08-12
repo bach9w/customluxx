@@ -128,11 +128,11 @@ export default function Dashboard() {
 								Гербове
 							</Link>
 							<Link
-								href="/admin/products"
+								href="/admin/symbols"
 								className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
 							>
 								<ShoppingCart className="h-5 w-5" />
-								Продукти
+								Символи
 							</Link>
 							<Link
 								href="/admin/settings"
