@@ -24,6 +24,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 
 export function CartCard() {
 	const router = useRouter();
@@ -36,6 +38,8 @@ export function CartCard() {
 		symbol: "",
 		model: "",
 	});
+
+	const convexSymbols = useQuery(api.symbols.getAllSymbols);
 
 	const handleChange = (e: any) => {
 		setOrder({
@@ -70,10 +74,18 @@ export function CartCard() {
 								<TabsTrigger value="model">Модел</TabsTrigger>
 							</TabsList>
 							<TabsContent value="gerb">
-								<CarouselShower state={gerb} setState={setGerb} />
+								<CarouselShower
+									state={gerb}
+									setState={setGerb}
+									option="gerbs"
+								/>
 							</TabsContent>
 							<TabsContent value="flag">
-								<CarouselShower state={flag} setState={setFlag} />
+								<CarouselShower
+									state={flag}
+									setState={setFlag}
+									option="flags"
+								/>
 							</TabsContent>
 							<TabsContent value="text" className="">
 								<Label>Надпис върху калъфа</Label>
@@ -109,36 +121,24 @@ export function CartCard() {
 										<SelectValue placeholder="Символ" />
 									</SelectTrigger>
 									<SelectContent>
-										{symbols.map((s) => (
-											<SelectItem key={s.id} value={s.name}>
-												{s.name}
-											</SelectItem>
-										))}
+										{convexSymbols &&
+											convexSymbols.map((s) => (
+												<SelectItem key={s._id} value={s.name}>
+													{s.name}
+												</SelectItem>
+											))}
 									</SelectContent>
 								</Select>
 							</TabsContent>
 							<TabsContent value="model">
-								<Label>Модел на калъфа</Label>
-								<Select
-									onValueChange={(value) => {
-										setOrder({
-											...order,
-											model: value,
-										});
-										console.log(value);
+								<Label>Модел на телефона</Label>
+
+								<Input
+									value={order.model}
+									onChange={(e) => {
+										setOrder({ ...order, model: e.target.value });
 									}}
-								>
-									<SelectTrigger className="w-[180px]">
-										<SelectValue placeholder="Модел" />
-									</SelectTrigger>
-									<SelectContent>
-										{models.map((s) => (
-											<SelectItem key={s.id} value={s.name}>
-												{s.name}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
+								/>
 							</TabsContent>
 						</Tabs>
 					</div>

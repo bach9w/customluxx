@@ -11,51 +11,82 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { ConvexImage } from "@/app/admin/flags/page";
 
 function CarouselShower({
 	state,
 	setState,
+	option,
 }: {
 	state: any;
 	setState: Dispatch<SetStateAction<any>>;
+	option: string;
 }) {
-	const [api, setApi] = useState<CarouselApi>();
+	const flags = useQuery(api.flags.getFlags);
+	const gerbs = useQuery(api.gerbs.getGerbs);
+	const [provider, setProvider] = useState<string>();
+	const [apiC, setApiC] = useState<CarouselApi>();
 	const [current, setCurrent] = useState(0);
 	const [count, setCount] = useState(0);
 
 	useEffect(() => {
-		if (!api) {
+		if (!apiC) {
 			return;
 		}
 
-		setCount(api.scrollSnapList().length);
-		setCurrent(api.selectedScrollSnap() + 1);
+		setCount(apiC.scrollSnapList().length);
+		setCurrent(apiC.selectedScrollSnap() + 1);
 
-		api.on("select", () => {
-			setCurrent(api.selectedScrollSnap() + 1);
+		apiC.on("select", () => {
+			setCurrent(apiC.selectedScrollSnap() + 1);
 		});
-	}, [api]);
+	}, [apiC]);
 
 	useEffect(() => {
-		if (api && typeof state === "number" && state >= 0 && state < count) {
-			api.scrollTo(state - 1, true);
+		if (apiC && typeof state === "number" && state >= 0 && state < count) {
+			apiC.scrollTo(state - 1, true);
 		}
-	}, [api, state, count]);
+	}, [apiC, state, count]);
+
+	useEffect(() => {
+		if (option === "gerb") {
+			setProvider("gerbs");
+		} else if (option === "flag") {
+			setProvider("flags");
+		}
+	}, [option]);
 
 	return (
-		<Carousel setApi={setApi} className="w-full max-w-xs text-black">
+		<Carousel setApi={setApiC} className="w-full max-w-xs text-black">
 			<CarouselContent>
-				{Array.from({ length: 5 }).map((_, index) => (
-					<CarouselItem key={index}>
-						<div className="p-1">
-							<Card>
-								<CardContent className="flex aspect-square items-center justify-center p-6">
-									<span className="text-4xl font-semibold">{index + 1}</span>
-								</CardContent>
-							</Card>
-						</div>
-					</CarouselItem>
-				))}
+				{option === "gerbs" &&
+					gerbs &&
+					gerbs.map((gerb) => (
+						<CarouselItem key={gerb._id}>
+							<div className="p-1">
+								<Card>
+									<CardContent className="flex aspect-square items-center justify-center p-6">
+										<ConvexImage imageId={gerb.image} />
+									</CardContent>
+								</Card>
+							</div>
+						</CarouselItem>
+					))}
+				{option === "flags" &&
+					flags &&
+					flags.map((flag) => (
+						<CarouselItem key={flag._id}>
+							<div className="p-1">
+								<Card>
+									<CardContent className="flex aspect-square items-center justify-center p-6">
+										<ConvexImage imageId={flag.image} />
+									</CardContent>
+								</Card>
+							</div>
+						</CarouselItem>
+					))}
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />

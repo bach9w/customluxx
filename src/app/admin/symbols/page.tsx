@@ -52,39 +52,17 @@ import { useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { FiDelete } from "react-icons/fi";
-import AlertEdit from "./components/alert-edit";
-import AlertDelete from "./components/alert-delete";
+
 import { Id } from "../../../../convex/_generated/dataModel";
 
-export function ConvexImage({ imageId }: { imageId: Id<"_storage"> }) {
-	const imageUrl = useQuery(api.files.getImageUrl, { imageId });
-
-	return (
-		imageUrl && (
-			<Image alt="image test image" width={200} height={200} src={imageUrl} />
-		)
-	);
-}
-
 export default function Dashboard() {
-	const [edited, setEdited] = useState(false);
-	const [image, setImage] = useState<Id<"_storage">>();
 	const [name, setName] = useState("");
-	const [description, setDescription] = useState("");
+	const add = useMutation(api.symbols.createSymbol);
+	const symbols = useQuery(api.symbols.getAllSymbols);
 
-	const generateUploadUrl = useMutation(api.files.generateUploadUrl);
-	const saveStorageId = useMutation(api.files.saveStorageId);
-	const saveAfterUpload = async (uploaded: UploadFileResponse[]) => {
-		setImage((uploaded[0].response as any).storageId);
-	};
-
-	const flags = useQuery(api.flags.getFlags);
-	const create = useMutation(api.flags.createFlag);
-	function onEvent() {
-		create({
+	function onClick() {
+		add({
 			user: "j57cyqepg0d47msq00s41g91eh6ykhj3",
-			image: image || undefined,
-			description: description,
 			name: name,
 		});
 	}
@@ -128,11 +106,11 @@ export default function Dashboard() {
 								Гербове
 							</Link>
 							<Link
-								href="/admin/products"
+								href="/admin/symbols"
 								className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
 							>
 								<ShoppingCart className="h-5 w-5" />
-								Продукти
+								Символи
 							</Link>
 							<Link
 								href="/admin/settings"
@@ -145,33 +123,23 @@ export default function Dashboard() {
 					</SheetContent>
 				</Sheet>
 			</header>
-			<div className=" p-4 min-h-full flex w-full  items-start justify-center">
-				<div className="w-full flex ">
-					<div className="w-full h-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 text-white">
-						{flags?.map((flag) => (
-							<div key={flag._id}>
-								<Card className="min-h-[150px] max-h-[350px] min-w-[150px] flex items-center justify-center flex-col gap-2">
-									<CardHeader className="w-full flex items-center justify-center ">
-										<div className="gap-2 space-x-2">
-											<AlertDelete id={flag._id} />
-											<AlertEdit id={flag._id} />
-										</div>
-										<CardTitle>
-											<span className="text-xl font-semibold">
-												<Badge className="text-[27px]">{flag.name}</Badge>
-											</span>
-										</CardTitle>
-									</CardHeader>
-
-									<ConvexImage imageId={flag.image} />
-									{flag.status === true ? "Активен" : "Неактивен"}
-								</Card>
-							</div>
-						))}
-					</div>
-				</div>
-				<div></div>
+			<div>Налични символи</div>
+			<div className="grid grid-cols-2 ">
+				{symbols &&
+					symbols.map((symbol) => (
+						<Card key={symbol._id}>
+							<CardHeader>
+								<CardTitle>
+									{symbol.name}
+									<Button size="sm" variant="outline">
+										<EditIcon />
+									</Button>
+								</CardTitle>
+							</CardHeader>
+						</Card>
+					))}
 			</div>
+
 			<div className="flex min-h-screen w-full flex-col bg-muted/40">
 				<div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
 					<main className="grid flex-1 items-start gap-4 p-2 sm:px-6 sm:py-0 md:gap-8">
@@ -194,24 +162,22 @@ export default function Dashboard() {
 									<Button variant="outline" size="sm">
 										Откажи
 									</Button>
-									<Button onClick={onEvent} size="sm">
-										Запази 2
-									</Button>
+									<Button size="sm">Запази 2</Button>
 								</div>
 							</div>
 							<div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
 								<div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
 									<Card x-chunk="dashboard-07-chunk-0">
 										<CardHeader>
-											<CardTitle>Знамена</CardTitle>
+											<CardTitle>Символи</CardTitle>
 											<CardDescription>
-												Добавяне, промяна и изтриване на знамена.
+												Добавяне, промяна и изтриване на символи.
 											</CardDescription>
 										</CardHeader>
 										<CardContent>
 											<div className="grid gap-6">
 												<div className="grid gap-3">
-													<Label htmlFor="name">Текст на знаме</Label>
+													<Label htmlFor="name">Текст на символ</Label>
 													<Input
 														id="name"
 														value={name}
@@ -220,28 +186,6 @@ export default function Dashboard() {
 														className="w-full"
 														placeholder="Петолъчка"
 													/>
-												</div>
-												<div className="grid gap-3">
-													<Label htmlFor="description">Описание</Label>
-													<Textarea
-														id="description"
-														placeholder="Метален символ"
-														className="min-h-32"
-														value={description}
-														onChange={(e) => setDescription(e.target.value)}
-													/>
-												</div>
-												<div>
-													Снимка
-													<UploadButton
-														uploadUrl={generateUploadUrl}
-														fileTypes={["image/*"]}
-														onUploadComplete={saveAfterUpload}
-														onUploadError={(error: unknown) => {
-															alert(`ERROR! ${error}`);
-														}}
-													/>
-													{image && <ConvexImage imageId={image} />}
 												</div>
 											</div>
 										</CardContent>
@@ -252,7 +196,7 @@ export default function Dashboard() {
 								<Button variant="outline" size="sm">
 									Отказ
 								</Button>
-								<Button onClick={onEvent} size="sm">
+								<Button onClick={onClick} size="sm">
 									Запази
 								</Button>
 							</div>
