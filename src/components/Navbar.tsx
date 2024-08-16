@@ -39,7 +39,7 @@ const Navbar = () => {
 					</Link>
 					{isAdmin ? (
 						<Link
-							href="/experimental"
+							href="/cart/products"
 							className={buttonVariants({
 								size: "sm",
 								variant: "ghost",

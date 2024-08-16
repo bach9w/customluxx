@@ -17,6 +17,7 @@ import type {
 import type * as files from "../files.js";
 import type * as flags from "../flags.js";
 import type * as gerbs from "../gerbs.js";
+import type * as products from "../products.js";
 import type * as symbols from "../symbols.js";
 import type * as users from "../users.js";
 
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   files: typeof files;
   flags: typeof flags;
   gerbs: typeof gerbs;
+  products: typeof products;
   symbols: typeof symbols;
   users: typeof users;
 }>;

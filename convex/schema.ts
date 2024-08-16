@@ -25,6 +25,9 @@ export default defineSchema({
 	files: defineTable({
 		storageId: v.any(),
 	}),
+	products: defineTable({
+		img: v.string(),
+	}),
 	users: defineTable({
 		name: v.string(),
 		password: v.any(),
