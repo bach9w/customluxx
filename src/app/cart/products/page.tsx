@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
-import Modal from "./orderModal/page";
+import Modal from "./orderModal/component";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
