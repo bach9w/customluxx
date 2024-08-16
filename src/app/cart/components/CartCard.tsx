@@ -61,9 +61,9 @@ export function CartCard() {
 					<div className="grid items-center justify-center gap-4">
 						<Tabs
 							defaultValue="gerb"
-							className="w-full flex justify-center items-center flex-col"
+							className="min-w-[100vw] md:min-w-full flex justify-center  items-center flex-col"
 						>
-							<TabsList className="bg-black text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-6 grid-flow-row mb-10">
+							<TabsList className="bg-black/20 w-full relative  text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-6 grid-flow-row mb-10">
 								<TabsTrigger className="" value="gerb">
 									Гербове
 								</TabsTrigger>

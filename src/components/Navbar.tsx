@@ -15,9 +15,9 @@ const Navbar = () => {
 			initial={{ opacity: 0, y: -100 }}
 			animate={{ opacity: 1, y: -30 }}
 			transition={{ ease: "linear", duration: 0.5, delay: 0.2 }}
-			className="sticky z-[100] h-20 items-end flex inset-x-0 top-0 w-full border-b border-red-700 bg-black backdrop-blur-lg transition-all text-white"
+			className="sticky z-[100] h-32 items-center justify-center top-5 flex inset-x-0  w-full border-b border-red-700 bg-black backdrop-blur-lg transition-all text-white"
 		>
-			<div className="flex h-4 items-center justify-between  ">
+			<div className="flex h-4 items-center justify-between space-x-4 hover:bg-indigo-500/20">
 				<Link
 					href="/"
 					className="flex z-40  items-center justify-center text-white text-xl font-bold"
@@ -32,6 +32,7 @@ const Navbar = () => {
 						className={buttonVariants({
 							size: "sm",
 							variant: "ghost",
+							className: "bg-red-600/30",
 						})}
 					>
 						Начало
@@ -42,13 +43,14 @@ const Navbar = () => {
 							className={buttonVariants({
 								size: "sm",
 								variant: "ghost",
+								className: "bg-red-600/30 transition-opacity text-white",
 							})}
 						>
 							Продукти
 						</Link>
 					) : null}
 					<Link href="/cart/">
-						<Button className="hidden sm:absolute right-5  sm:flex items-center gap-2 mt-10 hover:bg-red-600">
+						<Button className=" absolute right-5  sm:flex items-center gap-2 mt-10 hover:bg-red-600">
 							Поръчай сега
 							<ArrowBigDown className="ml-1.5 h-5 w-5" />
 						</Button>

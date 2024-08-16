@@ -21,12 +21,12 @@ const Experimental = () => {
 		<AnimatePresence>
 			<div className="w-full">
 				<div className="min-h-screen h-full ">
-					<div className="header text-xl uppercase text-white w-full flex items-center justify-center">
+					<div className="header text-3xl font-bold uppercase text-white w-full flex items-center justify-center">
 						Products
 					</div>
 					<div className="h-full">
 						<div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 px-4">
-							{Array.from({ length: 3 }).map((_, i) => (
+							{Array.from({ length: 5 }).map((_, i) => (
 								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
