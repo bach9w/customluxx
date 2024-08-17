@@ -27,21 +27,27 @@ const Modal = ({
 			{id && image && (
 				<div className="w-full h-full ">
 					<div className="flex justify-start gap-10 flex-col items-center h-full w-full">
-						<Badge className="w-full h-20 rounded-none text-3xl flex justify-center">
+						<Badge className="w-full h-20 rounded-none text-xl md:text-3xl flex justify-center">
 							ПОРЪЧАЙ СЕГА ЗА 45 ЛВ
 						</Badge>
-						<div className="">
-							<Label className="text-xl">Добави своето име</Label>
-							<Input placeholder={"Иван"} className="min-w-[80vw]" />
-							<Label className="text-xl">Текст под снимка</Label>
-							<Input placeholder={"Иван"} className="min-w-[80vw]" />
+						<div className="uppercase">
+							<Label className="text-md">Добави своето име</Label>
+							<Input
+								placeholder={"Иван"}
+								className="min-w-[80vw] text-[17px]"
+							/>
+							<Label className="text-md">Текст под символи</Label>
+							<Input
+								placeholder={"Иван"}
+								className="min-w-[80vw] text-[17px]"
+							/>
 						</div>
 						<Image
 							className="rounded-xl"
 							src={`/${image}.jpg`}
 							alt=""
-							width={500}
-							height={500}
+							width={300}
+							height={300}
 						/>
 					</div>
 				</div>

@@ -34,6 +34,7 @@ export function CartCard() {
 	const [flag, setFlag] = useState();
 	const [order, setOrder] = useState({
 		text: "",
+		text2: "",
 		table: "",
 		symbol: "",
 		model: "",
@@ -50,7 +51,7 @@ export function CartCard() {
 
 	return (
 		<>
-			<Card className="mx-auto max-w-xl">
+			<Card className="mx-auto border-0 max-w-xl">
 				<CardHeader>
 					<CardTitle className="text-2xl">Поръчка</CardTitle>
 					<CardDescription>
@@ -63,12 +64,15 @@ export function CartCard() {
 							defaultValue="gerb"
 							className="min-w-[100vw] md:min-w-full flex justify-center  items-center flex-col"
 						>
-							<TabsList className="bg-black/20 w-full relative  text-white grid grid-cols-3 h-20 sm:h-10 sm:grid-cols-6 grid-flow-row mb-10">
+							<TabsList className="bg-red-500/80 rounded-none w-full relative  text-white grid grid-cols-3 h-30 sm:h-20 sm:grid-cols-6 grid-flow-row mb-10">
 								<TabsTrigger className="" value="gerb">
 									Гербове
 								</TabsTrigger>
-								<TabsTrigger value="flag">Знамена</TabsTrigger>
 								<TabsTrigger value="text">Надпис</TabsTrigger>
+
+								<TabsTrigger value="flag">Знамена</TabsTrigger>
+								<TabsTrigger value="text2">Надпис</TabsTrigger>
+
 								<TabsTrigger value="table">Табелка</TabsTrigger>
 								<TabsTrigger value="symbol">Символ</TabsTrigger>
 								<TabsTrigger value="model">Модел</TabsTrigger>
@@ -88,7 +92,16 @@ export function CartCard() {
 								/>
 							</TabsContent>
 							<TabsContent value="text" className="">
-								<Label>Надпис върху калъфа</Label>
+								<Label>Надпис под герб</Label>
+								<Input
+									type="text"
+									name="text2"
+									placeholder="примерен текст"
+									onChange={handleChange}
+								/>
+							</TabsContent>
+							<TabsContent value="text2" className="">
+								<Label>Надпис под знаме</Label>
 								<Input
 									type="text"
 									name="text"
@@ -149,7 +162,7 @@ export function CartCard() {
 				<Button
 					onClick={() => {
 						router.push(
-							`/cart/order?gerb=${gerb}&flag=${flag}&text=${order.text}&table=${order.table}&symbol=${order.symbol}&model=${order.model}`,
+							`/cart/order?gerb=${gerb}&flag=${flag}&text=${order.text}&table=${order.table}&symbol=${order.symbol}&model=${order.model}&text2=${order.text2}`,
 						);
 					}}
 					variant={"destructive"}

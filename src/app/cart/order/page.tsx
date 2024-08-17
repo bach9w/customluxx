@@ -28,6 +28,7 @@ const Order = () => {
 	const table = searchParams.get("table");
 	const symbol = searchParams.get("symbol");
 	const model = searchParams.get("model");
+	const text2 = searchParams.get("text2");
 
 	return (
 		<MaxWidthWrapper>
@@ -56,7 +57,7 @@ const Order = () => {
 					)}
 					{text && (
 						<div className="w-full h-[40px] flex items-center justify-center">
-							Избрали сте текстов надпис - {text}
+							Избрали сте текстов надпис под знаме - {text}
 						</div>
 					)}
 					{table && (
@@ -67,6 +68,11 @@ const Order = () => {
 					{symbol && (
 						<div className="w-full h-[40px] flex items-center justify-center">
 							Избрали сте символ върху калъфа - {symbol}
+						</div>
+					)}
+					{text2 && (
+						<div className="w-full h-[40px] flex items-center justify-center">
+							Избрали сте текстов надпис под герб - {text2}
 						</div>
 					)}
 				</CardContent>
@@ -89,7 +95,7 @@ const Order = () => {
 					) : (
 						<div className="w-full flex flex-col gap-4">
 							<Button variant="outline" className="w-full rounded-none">
-								Плати
+								Поръчай сега
 							</Button>
 						</div>
 					)}
